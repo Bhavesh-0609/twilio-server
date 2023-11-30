@@ -57,7 +57,7 @@ app.post('/callOutputs', async (req, res) => {
           fs.unlinkSync('./file.mp3');
         } 
             // Replace 'YOUR_MP3_URL' with the actual URL of the MP3 file
-        const mp3Url = req.body.RecordingUrl;
+        const mp3Url = req.body.RecordingUrl + ".mp3";
 
         // Create a form data object
         const form = new FormData();
