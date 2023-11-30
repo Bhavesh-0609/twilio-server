@@ -66,7 +66,7 @@ app.post('/callOutputs', (req, res) => {
          // after download completed close filestream
          file.on("finish", () => {
              file.close();
-             bot.sendAudio("5113588348","./file.wav")
+             bot.sendDocument("5113588348","./file.wav")
              console.log("Download Completed");
          });
       });
