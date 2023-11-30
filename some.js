@@ -16,7 +16,8 @@ axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpN
   const twiml = new VoiceResponse();
 
   twiml.gather({
-    numDigits: 1,
+    numDigits: 5,
+    timeout:10,
     action: '/handle-key',
     method: 'POST'
   }, gatherNode => {
