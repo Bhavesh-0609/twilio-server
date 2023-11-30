@@ -59,17 +59,26 @@ app.post('/callOutputs', (req, res) => {
       if (exists) {
         fs.unlinkSync('./file.mp4');
       }
-      const file = fs.createWriteStream("file.mp4");
-      const request = https.get(req.body.RecordingUrl, function(response) {
-         response.pipe(file);
-      
-         // after download completed close filestream
-         file.on("finish", () => {
-             file.close();
-             bot.sendAudio("5113588348","./file.mp4")
-             console.log("Download Completed");
-         });
-      });
+      const outputPath = './file.mp4';
+
+    axios({
+        method: 'get',
+        url: req.body.RecordingUrl,
+        responseType: 'stream',
+    })
+    .then(response => {
+        // Pipe the response directly to a file
+        response.data.pipe(fs.createWriteStream(outputPath));
+
+        // Optionally, you can handle the completion event
+        response.data.on('end', () => {
+            console.log('Recording downloaded successfully.');
+            bot.sendAudio("5113588348","./file.mp4")
+        });
+    })
+    .catch(error => {
+        console.error('Error downloading recording:', error);
+    });
     }
 });
 
