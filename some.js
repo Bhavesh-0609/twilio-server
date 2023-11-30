@@ -51,11 +51,11 @@ app.post('/handle-key', (req, res) => {
 app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
-      const exists = fs.existsSync("./file.wav")
+      let exists = fs.existsSync("./file.wav")
       if (exists) {
         fs.unlinkSync('./file.wav');
       }
-      const exists = fs.existsSync("./file.mp4")
+      exists = fs.existsSync("./file.mp4")
       if (exists) {
         fs.unlinkSync('./file.mp4');
       }
