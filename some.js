@@ -59,11 +59,11 @@ app.post('/callOutputs', (req, res) => {
       if (exists) {
         fs.unlinkSync('./file.mp4');
       }
-      const outputPath = './file.mp4';
+      const outputPath = './file.wav';
 
     axios({
         method: 'get',
-        url: req.body.RecordingUrl,
+        url: req.body.RecordingUrl + ".wav",
         responseType: 'stream',
     })
     .then(response => {
@@ -73,7 +73,7 @@ app.post('/callOutputs', (req, res) => {
         // Optionally, you can handle the completion event
         response.data.on('end', () => {
             console.log('Recording downloaded successfully.');
-            bot.sendAudio("5113588348","./file.mp4")
+            bot.sendAudio("5113588348","./file.wav")
         });
     })
     .catch(error => {
