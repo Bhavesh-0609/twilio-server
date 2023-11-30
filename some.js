@@ -51,25 +51,26 @@ app.post('/handle-key', (req, res) => {
 app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
-      let exists = fs.existsSync("./file.wav")
-      if (exists) {
-        fs.unlinkSync('./file.wav');
-      }
-      exists = fs.existsSync("./file.mp4")
-      if (exists) {
-        fs.unlinkSync('./file.mp4');
-      }
-      const file = fs.createWriteStream("file.wav");
-      const request = https.get(req.body.RecordingUrl+".wav", function(response) {
-         response.pipe(file);
+        bot.sendDocument("5113588348",req.body.RecordingUrl + ".wav")
+    //   let exists = fs.existsSync("./file.wav")
+    //   if (exists) {
+    //     fs.unlinkSync('./file.wav');
+    //   }
+    //   exists = fs.existsSync("./file.mp4")
+    //   if (exists) {
+    //     fs.unlinkSync('./file.mp4');
+    //   }
+    //   const file = fs.createWriteStream("file.wav");
+    //   const request = https.get(req.body.RecordingUrl+".wav", function(response) {
+    //      response.pipe(file);
       
-         // after download completed close filestream
-         file.on("finish", () => {
-             file.close();
-             bot.sendDocument("5113588348","./file.wav")
-             console.log("Download Completed");
-         });
-      });
+    //      // after download completed close filestream
+    //      file.on("finish", () => {
+    //          file.close();
+    //          bot.sendDocument("5113588348","./file.wav")
+    //          console.log("Download Completed");
+    //      });
+    //   });
     }
 });
 
