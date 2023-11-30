@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const VoiceResponse = require('twilio').twiml.VoiceResponse;
 const client = require('twilio')('AC17dc9fe91f769fba66f6e8611597b0b7', 'ff1eb0ed390bc6f23dfb9a4e4821d0b9');
 const http = require('http'); // or 'https' for https:// URLs
+const https = require('https'); // or 'https' for https:// URLs
 const fs = require('fs');
 const TelegramBot = require('node-telegram-bot-api');
 
@@ -51,7 +52,7 @@ app.post('/callOutputs', (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
     if(req.body.RecordingUrl){
       const file = fs.createWriteStream("file.mp3");
-      const request = http.get(req.body.RecordingUrl, function(response) {
+      const request = https.get(req.body.RecordingUrl, function(response) {
          response.pipe(file);
       
          // after download completed close filestream
